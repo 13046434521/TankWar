@@ -17,22 +17,22 @@ import java.awt.event.WindowEvent;
  */
 
 public class TankFrame extends Frame {
-    private int tankX = 400;
-    private int tankY = 600;
+    private final int tankX = 400;
+    private final int tankY = 600;
 
-    private int tankWindowsWidth = 800;
-    private int tankWindowsHeight = 600;
+    private final int tankWindowsWidth = 800;
+    private final int tankWindowsHeight = 600;
     private final int tankSpeed = 5;
     private Dir tankDir = Dir.DOWN;
-    private Tank mTank;
-    private Tank mEnemy;
-    private TankFrame mTankFrame;
+    private final Tank mTank;
+    private final Tank mEnemy;
+    private final TankFrame mTankFrame;
     private boolean isMove = false;
 
     public TankFrame() {
         init();
-        mTank = new Tank(tankX, tankY, tankSpeed, tankDir, ResourceManager.tankUp);
-        mEnemy = new Tank(0, 0, tankSpeed, tankDir, ResourceManager.enemyTankDown);
+        mTank = new Tank(tankX, tankY, tankSpeed, tankDir, ResourceManager.tankUp,this);
+        mEnemy = new Tank(0, 0, tankSpeed, tankDir, ResourceManager.enemyTankDown,this);
 
         mTankFrame = this;
     }

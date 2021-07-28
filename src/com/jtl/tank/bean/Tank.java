@@ -1,15 +1,9 @@
 package com.jtl.tank.bean;
 
 import com.jtl.tank.Dir;
-import com.jtl.tank.ImageUtils;
 import com.jtl.tank.TankFrame;
-import com.jtl.tank.bean.Action;
-import com.sun.imageio.plugins.common.ImageUtil;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.List;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -19,24 +13,30 @@ import java.util.ArrayList;
  */
 
 public class Tank extends TankObject {
-    private int tankWidth =50;
-    private int tankHeight=50;
-    private BufferedImage mTankImage;
-    private ArrayList<Bullet> mBulletList = new ArrayList<Bullet>();
-    public Tank(int positionX,int positionY, int speed,Dir dir,BufferedImage bufferedImage){
+    private final int tankWidth =50;
+    private final int tankHeight=50;
+    private final BufferedImage mTankImage;
+    private final ArrayList<Bullet> mBulletList = new ArrayList<Bullet>();
+    private final TankFrame mTankFrame;
+    public Tank(int positionX,int positionY, int speed,Dir dir,BufferedImage bufferedImage,TankFrame tankFrame){
         this.mPositionX = positionX;
         this.mPositionY = positionY;
         this.mDir = dir;
         this.mSpeed = speed;
         this.mTankImage = bufferedImage;
+        mTankFrame = tankFrame;
     }
 
 
 
     @Override
     public void paint(Graphics graphics) {
-        for (Bullet bullet:mBulletList){
+        for (int i=0;i<mBulletList.size();i++){
+            Bullet bullet = mBulletList.get(i);
             bullet.paint(graphics);
+            if (!bullet.isLive){
+                mBulletList.remove(bullet);
+            }
         }
         graphics.drawImage(mTankImage,mPositionX,mPositionY,tankWidth,tankHeight,null);
         if (!isMove){
@@ -71,7 +71,7 @@ public class Tank extends TankObject {
     }
 
     public void fire(){
-        Bullet bullet = new Bullet(mPositionX+tankWidth/2,mPositionY+tankHeight/2,tankWidth/5,tankHeight/5,mDir);
+        Bullet bullet = new Bullet(mPositionX+tankWidth/2,mPositionY+tankHeight/2,tankWidth/5,tankHeight/5,mDir,this.mTankFrame);
         mBulletList.add(bullet);
     }
 }
