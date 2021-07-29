@@ -1,11 +1,13 @@
 package com.jtl.tank.bean;
 
 import com.jtl.tank.Dir;
+import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author jtl
@@ -13,12 +15,13 @@ import java.util.ArrayList;
  */
 
 public class Tank extends TankObject {
-    private final int tankWidth =50;
-    private final int tankHeight=50;
-    private final BufferedImage mTankImage;
-    private final ArrayList<Bullet> mBulletList = new ArrayList<Bullet>();
+    private final int tankWidth = 50;
+    private final int tankHeight = 50;
+    private BufferedImage mTankImage;
+    private ArrayList<Bullet> mBulletList = new ArrayList<Bullet>();
     private final TankFrame mTankFrame;
-    public Tank(int positionX,int positionY, int speed,Dir dir,BufferedImage bufferedImage,TankFrame tankFrame){
+
+    public Tank(int positionX, int positionY, int speed, Dir dir, BufferedImage bufferedImage, TankFrame tankFrame) {
         this.mPositionX = positionX;
         this.mPositionY = positionY;
         this.mDir = dir;
@@ -28,50 +31,69 @@ public class Tank extends TankObject {
     }
 
 
-
     @Override
     public void paint(Graphics graphics) {
-        for (int i=0;i<mBulletList.size();i++){
+        if (!isLive) {
+            if (mAtomicInteger.get()<ResourceManager.enemyBlastArrayList.size()){
+                graphics.drawImage(ResourceManager.enemyBlastArrayList.get(mAtomicInteger.getAndIncrement()), mPositionX, mPositionY, tankWidth, tankHeight, null);
+            }
+            return;
+        }
+        for (int i = 0; i < mBulletList.size(); i++) {
             Bullet bullet = mBulletList.get(i);
             bullet.paint(graphics);
-            if (!bullet.isLive){
+            if (!bullet.isLive) {
                 mBulletList.remove(bullet);
             }
         }
-        graphics.drawImage(mTankImage,mPositionX,mPositionY,tankWidth,tankHeight,null);
-        if (!isMove){
+
+        graphics.drawImage(mTankImage, mPositionX, mPositionY, tankWidth, tankHeight, null);
+        if (!isMove) {
             return;
         }
-        switch (mDir){
+        switch (mDir) {
             case UP:
                 //w
-                mPositionY-=mSpeed;
-                if (mPositionY<=0){
-                    mPositionY=0;
+                mPositionY -= mSpeed;
+                if (mPositionY <= 0) {
+                    mPositionY = 0;
                 }
                 break;
             case DOWN:
                 //s
-                mPositionY+=mSpeed;
+                mPositionY += mSpeed;
                 break;
             case LEFT:
                 //a
-                mPositionX-=mSpeed;
-                if (mPositionX<=0){
-                    mPositionX=0;
+                mPositionX -= mSpeed;
+                if (mPositionX <= 0) {
+                    mPositionX = 0;
                 }
                 break;
             case RIGHT:
                 //d
-                mPositionX+=mSpeed;
+                mPositionX += mSpeed;
                 break;
             default:
                 break;
         }
     }
 
-    public void fire(){
-        Bullet bullet = new Bullet(mPositionX+tankWidth/2,mPositionY+tankHeight/2,tankWidth/5,tankHeight/5,mDir,this.mTankFrame);
+    public void setTankImage(BufferedImage tankImage) {
+        mTankImage = tankImage;
+    }
+
+    public void fire() {
+        Bullet bullet = new Bullet(mPositionX + tankWidth / 2, mPositionY + tankHeight / 2, tankWidth / 5, tankHeight / 5, mDir, this.mTankFrame);
         mBulletList.add(bullet);
+    }
+
+    private AtomicInteger mAtomicInteger=new AtomicInteger(0);
+    public void born() {
+        isLive = false;
+    }
+
+    public ArrayList<Bullet> getBulletList() {
+        return mBulletList;
     }
 }

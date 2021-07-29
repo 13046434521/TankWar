@@ -7,14 +7,15 @@ import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Constructor;
 
 /**
  * @author jtl
  * @date 2021/7/27 16:31
  */
 
-public class Bullet extends TankObject{
-    private final BufferedImage mBullet = ResourceManager.tankBullet;
+public class Bullet extends TankObject implements Action{
+    private BufferedImage mBullet = ResourceManager.tankBullet;
     private TankFrame mTankFrame ;
     public Bullet(int positionX,int positionY, Dir dir){
         this.mPositionX = positionX;
@@ -33,6 +34,9 @@ public class Bullet extends TankObject{
 
     @Override
     public void paint(Graphics graphics) {
+        if (!isLive){
+            return;
+        }
         graphics.drawImage(mBullet,mPositionX-mWidth/2,mPositionY-mHeight/2,mWidth,mHeight,null);
         if (Dir.UP==mDir){
             mPositionY-=mSpeed;
@@ -50,5 +54,9 @@ public class Bullet extends TankObject{
         if (mPositionX<0||mPositionY<0||mPositionX>mTankFrame.getWidth()||mPositionY>mTankFrame.getHeight()){
             isLive = false;
         }
+    }
+
+    public void born(){
+        isLive = false;
     }
 }

@@ -13,8 +13,8 @@ public abstract class TankObject implements Action{
     int mSpeed = 10;
     int mWidth =50;
     int mHeight =50;
-    int mCenterX = mPositionX+mWidth/2;
-    int mCenterY = mPositionY+mHeight/2;
+    int mCenterX = 0;
+    int mCenterY = 0;
     Dir mDir = Dir.UP;
     boolean isMove;
     boolean isLive = true;
@@ -40,10 +40,44 @@ public abstract class TankObject implements Action{
     }
 
     public int getCenterX() {
+        mCenterX = mPositionX+mWidth/2;
         return mCenterX;
     }
 
     public int getCenterY() {
+        mCenterY = mPositionY+mHeight/2;
         return mCenterY;
+    }
+
+    public int getPositionX() {
+        return mPositionX;
+    }
+
+    public int getPositionY() {
+        return mPositionY;
+    }
+
+    public int getSpeed() {
+        return mSpeed;
+    }
+
+    public int getWidth() {
+        return mWidth;
+    }
+
+    public int getHeight() {
+        return mHeight;
+    }
+
+    public Dir getDir() {
+        return mDir;
+    }
+
+    public boolean isMove() {
+        return isMove;
+    }
+
+    public boolean isLive() {
+        return isLive;
     }
 }

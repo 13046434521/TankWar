@@ -1,6 +1,7 @@
 package com.jtl.tank;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * @author jtl
@@ -14,13 +15,23 @@ public class ResourceManager {
     public static BufferedImage tankLeft;
     public static BufferedImage tankRight;
 
+    public static BufferedImage tankBullet;
+
     public static BufferedImage enemyTankDefault;
     public static BufferedImage enemyTankUp;
     public static BufferedImage enemyTankDown;
     public static BufferedImage enemyTankLeft;
     public static BufferedImage enemyTankRight;
 
-    public static BufferedImage tankBullet;
+    public static BufferedImage enemyBlast0;
+    public static BufferedImage enemyBlast1;
+    public static BufferedImage enemyBlast2;
+    public static BufferedImage enemyBlast3;
+    public static BufferedImage enemyBlast4;
+    public static BufferedImage enemyBlast5;
+    public static BufferedImage enemyBlast6;
+    public static BufferedImage enemyBlast7;
+    public static ArrayList<BufferedImage> enemyBlastArrayList = new ArrayList<>();
 
     static {
         tankDefault = ImageUtils.INSTANCE.loadImage("image/p1tankU.jpg");
@@ -36,5 +47,22 @@ public class ResourceManager {
         enemyTankDown = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,180);
         enemyTankLeft = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,270);
         enemyTankRight = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,90);
+
+        enemyBlast0 = ImageUtils.INSTANCE.loadImage("image/blast1.jpg");
+        enemyBlast1 = ImageUtils.INSTANCE.loadImage("image/blast2.jpg");
+        enemyBlast2 = ImageUtils.INSTANCE.loadImage("image/blast3.jpg");
+        enemyBlast3 = ImageUtils.INSTANCE.loadImage("image/blast4.jpg");
+        enemyBlast4 = ImageUtils.INSTANCE.loadImage("image/blast5.jpg");
+        enemyBlast5 = ImageUtils.INSTANCE.loadImage("image/blast6.jpg");
+        enemyBlast6 = ImageUtils.INSTANCE.loadImage("image/blast7.jpg");
+        enemyBlast7 = ImageUtils.INSTANCE.loadImage("image/blast8.jpg");
+        enemyBlastArrayList.add(0,enemyBlast0);
+        enemyBlastArrayList.add(1,enemyBlast1);
+        enemyBlastArrayList.add(2,enemyBlast2);
+        enemyBlastArrayList.add(3,enemyBlast3);
+        enemyBlastArrayList.add(4,enemyBlast4);
+        enemyBlastArrayList.add(5,enemyBlast5);
+        enemyBlastArrayList.add(6,enemyBlast6);
+        enemyBlastArrayList.add(7,enemyBlast7);
     }
 }
