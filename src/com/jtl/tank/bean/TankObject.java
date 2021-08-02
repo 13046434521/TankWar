@@ -80,4 +80,32 @@ public abstract class TankObject implements Action{
     public boolean isLive() {
         return isLive;
     }
+
+    /**
+     * 仿照Rectangle 来判断两个tankObject是否相交
+     * @param tankObject
+     * @return
+     */
+    public boolean intersects(TankObject tankObject) {
+        int tw = this.mWidth;
+        int th = this.mHeight;
+        int rw = tankObject.mWidth;
+        int rh = tankObject.mHeight;
+        if (rw <= 0 || rh <= 0 || tw <= 0 || th <= 0) {
+            return false;
+        }
+        int tx = this.mPositionX;
+        int ty = this.mPositionY;
+        int rx = tankObject.mPositionX;
+        int ry = tankObject.mPositionY;
+        rw += rx;
+        rh += ry;
+        tw += tx;
+        th += ty;
+        //      overflow || intersect
+        return ((rw < rx || rw > tx) &&
+                (rh < ry || rh > ty) &&
+                (tw < tx || tw > rx) &&
+                (th < ty || th > ry));
+    }
 }

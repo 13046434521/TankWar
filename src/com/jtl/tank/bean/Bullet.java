@@ -6,7 +6,6 @@ import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 /**
@@ -15,7 +14,7 @@ import java.awt.image.BufferedImage;
  */
 
 public class Bullet extends TankObject implements Action{
-    private BufferedImage mBullet = ResourceManager.tankBullet;
+    private final BufferedImage mBullet = ResourceManager.tankBullet;
     private TankFrame mTankFrame ;
     public Bullet(int positionX,int positionY, Dir dir){
         this.mPositionX = positionX;
@@ -60,6 +59,10 @@ public class Bullet extends TankObject implements Action{
     public void die() {
         isLive = false;
     }
+
+    /**
+     * 判断子弹和窗口边界关系
+     */
     public void bound() {
         if (getCenterX()>mTankFrame.getWidth()||getCenterX()<0||getCenterY()<0||getCenterY()>mTankFrame.getHeight()){
             this.die();
@@ -67,10 +70,12 @@ public class Bullet extends TankObject implements Action{
         }
     }
 
+    /**
+     * 子弹碰撞方法
+     * @param tank
+     */
     public void collideWith(Tank tank){
-        Rectangle bulletRect = new Rectangle(mPositionX,mPositionY,mWidth,mHeight);
-        Rectangle tankRect = new Rectangle(tank.mPositionX,tank.mPositionY,tank.mWidth,tank.mHeight);
-        if (bulletRect.intersects(tankRect)) {
+        if (this.intersects(tank)) {
             tank.die();
             this.die();
             System.out.println("坦克:"+tank.hashCode()+" 被子弹:"+this.hashCode()+"  摧毁！");
