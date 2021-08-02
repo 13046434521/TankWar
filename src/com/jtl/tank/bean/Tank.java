@@ -38,7 +38,9 @@ public class Tank extends TankObject {
             if (mAtomicInteger.get() < ResourceManager.enemyBlastArrayList.size()) {
                 graphics.drawImage(ResourceManager.enemyBlastArrayList.get(mAtomicInteger.getAndIncrement()), mPositionX, mPositionY, tankWidth, tankHeight, null);
             }
-            return;
+
+            mTankFrame.getTanks().remove(this);
+//            return;
         }
 
         graphics.drawImage(mTankImage, mPositionX, mPositionY, tankWidth, tankHeight, null);

@@ -109,13 +109,6 @@ public class TankFrame extends Frame {
             for (int i=0;i<tankBulletList.size();i++){
                 Bullet bullet = tankBulletList.get(i);
                 bullet.collideWith(enemy);
-                if (!bullet.isLive()){
-                    tankBulletList.remove(bullet);
-                }
-                if (!enemy.isLive()){
-                    mTanks.remove(enemy);
-                    break;
-                }
             }
         }
 
@@ -224,5 +217,13 @@ public class TankFrame extends Frame {
 
             System.out.println(tankDir.name());
         }
+    }
+
+    public Tank getTank() {
+        return mTank;
+    }
+
+    public ArrayList<Tank> getTanks() {
+        return mTanks;
     }
 }

@@ -34,7 +34,7 @@ public class Bullet extends TankObject implements Action{
     @Override
     public void paint(Graphics graphics) {
         if (!isLive){
-            return;
+            mTankFrame.getTank().getBulletList().remove(this);
         }
         graphics.drawImage(mBullet,mPositionX-mWidth/2,mPositionY-mHeight/2,mWidth,mHeight,null);
         if (Dir.UP==mDir){
