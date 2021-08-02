@@ -6,8 +6,8 @@ import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Constructor;
 
 /**
  * @author jtl
@@ -56,7 +56,24 @@ public class Bullet extends TankObject implements Action{
         }
     }
 
-    public void born(){
+    @Override
+    public void die() {
         isLive = false;
+    }
+    public void bound() {
+        if (getCenterX()>mTankFrame.getWidth()||getCenterX()<0||getCenterY()<0||getCenterY()>mTankFrame.getHeight()){
+            this.die();
+            System.out.println("子弹:"+this.hashCode()+"  撞击边界！");
+        }
+    }
+
+    public void collideWith(Tank tank){
+        Rectangle bulletRect = new Rectangle(mPositionX,mPositionY,mWidth,mHeight);
+        Rectangle tankRect = new Rectangle(tank.mPositionX,tank.mPositionY,tank.mWidth,tank.mHeight);
+        if (bulletRect.intersects(tankRect)) {
+            tank.die();
+            this.die();
+            System.out.println("坦克:"+tank.hashCode()+" 被子弹:"+this.hashCode()+"  摧毁！");
+        }
     }
 }

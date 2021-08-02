@@ -10,5 +10,6 @@ import java.awt.Graphics;
 interface Action {
     void paint(Graphics graphics);
 
+    void die();
 //    void update(Graphics graphics);
 }

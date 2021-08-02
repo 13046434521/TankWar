@@ -30,12 +30,21 @@ public class TankFrame extends Frame {
     private final Tank mEnemy;
     private final TankFrame mTankFrame;
     private boolean isMove = false;
-
+    private ArrayList<Tank> mTanks = new ArrayList<>();
     public TankFrame() {
         init();
         mTank = new Tank(tankX, tankY, tankSpeed, tankDir, ResourceManager.tankUp, this);
         mEnemy = new Tank(400, 100, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
+        Tank mEnemy1= new Tank(100, 300, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
+        Tank mEnemy2= new Tank(200, 100, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
+        Tank mEnemy3= new Tank(300, 100, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
+        Tank mEnemy4= new Tank(500, 500, tankSpeed, tankDir, ResourceManager.enemyTankLeft, this);
 
+        mTanks.add(mEnemy);
+        mTanks.add(mEnemy1);
+        mTanks.add(mEnemy2);
+        mTanks.add(mEnemy3);
+        mTanks.add(mEnemy4);
         mTankFrame = this;
     }
 
@@ -73,27 +82,46 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        if (mTank == null || mEnemy == null) {
-            return;
+        g.setColor(Color.WHITE);
+        g.drawString("子弹数量:"+mTank.getBulletList().size(),0,50);
+        g.drawString("坦克数量:"+mTanks.size(),0,100);
+
+
+        ArrayList<Bullet> tankBulletList = mTank.getBulletList();
+
+        for (int i = 0; i < tankBulletList.size(); i++) {
+            Bullet bullet = tankBulletList.get(i);
+            bullet.paint(g);
+            bullet.bound();
+            if (!bullet.isLive()){
+                tankBulletList.remove(bullet);
+            }
         }
-        mTank.setDir(tankDir);
-        mTank.setMove(isMove);
-        mTank.paint(g);
+        for (int k=0;k<mTanks.size();k++){
+            Tank enemy = mTanks.get(k);
+            enemy.setDir(tankDir);
+            enemy.setMove(false);
+            enemy.paint(g);
+        }
 
-
-        ArrayList<Bullet> arrayList = mTank.getBulletList();
-        for (int i=0;i<arrayList.size();i++){
-            Bullet bullet = arrayList.get(i);
-            if (bullet.getCenterX()>mEnemy.getPositionX()&&bullet.getCenterX()<(mEnemy.getPositionX()+mEnemy.getWidth())&&bullet.getCenterY()>mEnemy.getPositionY()&&bullet.getCenterY()<(mEnemy.getPositionY()+mEnemy.getHeight())){
-                mEnemy.born();
-                bullet.born();
-                break;
+        for (int k=0;k<mTanks.size();k++){
+            Tank enemy = mTanks.get(k);
+            for (int i=0;i<tankBulletList.size();i++){
+                Bullet bullet = tankBulletList.get(i);
+                bullet.collideWith(enemy);
+                if (!bullet.isLive()){
+                    tankBulletList.remove(bullet);
+                }
+                if (!enemy.isLive()){
+                    mTanks.remove(enemy);
+                    break;
+                }
             }
         }
 
-        mEnemy.setDir(tankDir);
-        mEnemy.setMove(false);
-        mEnemy.paint(g);
+        mTank.setDir(tankDir);
+        mTank.setMove(isMove);
+        mTank.paint(g);
     }
 
     class MyKeyListener implements KeyListener {
@@ -106,7 +134,7 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("pressed:" + e.getExtendedKeyCode() + "  " + e.getKeyChar());
+//            System.out.println("pressed:" + e.getExtendedKeyCode() + "  " + e.getKeyChar());
             //方向变量归位
 
             switch (e.getKeyCode()) {
@@ -143,7 +171,7 @@ public class TankFrame extends Frame {
 
         @Override
         public void keyReleased(KeyEvent e) {
-            System.out.println("released:" + e.getExtendedKeyCode());
+//            System.out.println("released:" + e.getExtendedKeyCode());
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_UP:
                 case KeyEvent.VK_W:
@@ -173,7 +201,7 @@ public class TankFrame extends Frame {
         }
 
         private void move() {
-            System.out.println(bU + " " + bD + " " + bL + " " + bR);
+//            System.out.println(bU + " " + bD + " " + bL + " " + bR);
             if (!bU && !bD && !bL && !bR) {
                 isMove = false;
             }

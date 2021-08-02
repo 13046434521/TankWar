@@ -5,6 +5,7 @@ import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -34,17 +35,10 @@ public class Tank extends TankObject {
     @Override
     public void paint(Graphics graphics) {
         if (!isLive) {
-            if (mAtomicInteger.get()<ResourceManager.enemyBlastArrayList.size()){
+            if (mAtomicInteger.get() < ResourceManager.enemyBlastArrayList.size()) {
                 graphics.drawImage(ResourceManager.enemyBlastArrayList.get(mAtomicInteger.getAndIncrement()), mPositionX, mPositionY, tankWidth, tankHeight, null);
             }
             return;
-        }
-        for (int i = 0; i < mBulletList.size(); i++) {
-            Bullet bullet = mBulletList.get(i);
-            bullet.paint(graphics);
-            if (!bullet.isLive) {
-                mBulletList.remove(bullet);
-            }
         }
 
         graphics.drawImage(mTankImage, mPositionX, mPositionY, tankWidth, tankHeight, null);
@@ -79,6 +73,11 @@ public class Tank extends TankObject {
         }
     }
 
+    @Override
+    public void die() {
+         isLive = false;
+    }
+
     public void setTankImage(BufferedImage tankImage) {
         mTankImage = tankImage;
     }
@@ -88,10 +87,8 @@ public class Tank extends TankObject {
         mBulletList.add(bullet);
     }
 
-    private AtomicInteger mAtomicInteger=new AtomicInteger(0);
-    public void born() {
-        isLive = false;
-    }
+    private AtomicInteger mAtomicInteger = new AtomicInteger(0);
+
 
     public ArrayList<Bullet> getBulletList() {
         return mBulletList;
