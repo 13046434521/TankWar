@@ -16,6 +16,7 @@ public class ResourceManager {
     public static BufferedImage tankRight;
 
     public static BufferedImage tankBullet;
+    public static BufferedImage enemyBullet;
 
     public static BufferedImage enemyTankDefault;
     public static BufferedImage enemyTankUp;
@@ -41,6 +42,7 @@ public class ResourceManager {
         tankRight = ImageUtils.INSTANCE.rotateImage(tankDefault,90);
 
         tankBullet = ImageUtils.INSTANCE.loadImage("image/tankmissile.jpg");
+        enemyBullet=ImageUtils.INSTANCE.loadImage("image/enemymissile.jpg");
 
         enemyTankDefault = ImageUtils.INSTANCE.loadImage("image/enemy1U.jpg");
         enemyTankUp = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,0);

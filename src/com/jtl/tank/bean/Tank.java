@@ -5,9 +5,9 @@ import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,13 +21,14 @@ public class Tank extends TankObject {
     private BufferedImage mTankImage;
     private ArrayList<Bullet> mBulletList = new ArrayList<Bullet>();
     private final TankFrame mTankFrame;
-
-    public Tank(int positionX, int positionY, int speed, Dir dir, BufferedImage bufferedImage, TankFrame tankFrame) {
+    private Random mRandom = new Random();
+    public Tank(int positionX, int positionY, int speed, Dir dir, Group group,BufferedImage bufferedImage, TankFrame tankFrame) {
         this.mPositionX = positionX;
         this.mPositionY = positionY;
         this.mDir = dir;
         this.mSpeed = speed;
         this.mTankImage = bufferedImage;
+        this.mGroup = group;
         mTankFrame = tankFrame;
     }
 
@@ -40,10 +41,13 @@ public class Tank extends TankObject {
             }
 
             mTankFrame.getTanks().remove(this);
-//            return;
         }
 
+        if (mRandom.nextInt(10)>8){
+            fire();
+        }
         graphics.drawImage(mTankImage, mPositionX, mPositionY, tankWidth, tankHeight, null);
+
         if (!isMove) {
             return;
         }
@@ -85,7 +89,7 @@ public class Tank extends TankObject {
     }
 
     public void fire() {
-        Bullet bullet = new Bullet(mPositionX + tankWidth / 2, mPositionY + tankHeight / 2, tankWidth / 5, tankHeight / 5, mDir, this.mTankFrame);
+        Bullet bullet = new Bullet(mPositionX + tankWidth / 2, mPositionY + tankHeight / 2, tankWidth / 5, tankHeight / 5, mDir,this.mGroup, this.mTankFrame);
         mBulletList.add(bullet);
     }
 

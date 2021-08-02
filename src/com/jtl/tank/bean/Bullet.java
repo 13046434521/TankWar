@@ -14,19 +14,17 @@ import java.awt.image.BufferedImage;
  */
 
 public class Bullet extends TankObject implements Action{
-    private final BufferedImage mBullet = ResourceManager.tankBullet;
-    private TankFrame mTankFrame ;
-    public Bullet(int positionX,int positionY, Dir dir){
-        this.mPositionX = positionX;
-        this.mPositionY = positionY;
-        this.mDir = dir;
-    }
-    public Bullet(int positionX, int positionY, int width, int height, Dir dir, TankFrame tankFrame){
+    private final BufferedImage mTankBullet = ResourceManager.tankBullet;
+    private final BufferedImage mEnemyBullet = ResourceManager.enemyBullet;
+    private final TankFrame mTankFrame ;
+
+    public Bullet(int positionX, int positionY, int width, int height, Dir dir,Group group, TankFrame tankFrame){
         this.mPositionX = positionX;
         this.mPositionY = positionY;
         this.mWidth = width;
         this.mHeight = height;
         this.mDir = dir;
+        this.mGroup = group;
         this.mTankFrame = tankFrame;
     }
 
@@ -36,7 +34,9 @@ public class Bullet extends TankObject implements Action{
         if (!isLive){
             mTankFrame.getTank().getBulletList().remove(this);
         }
-        graphics.drawImage(mBullet,mPositionX-mWidth/2,mPositionY-mHeight/2,mWidth,mHeight,null);
+
+        graphics.drawImage(this.mGroup.equals(Group.GOOD)?mTankBullet:mEnemyBullet,mPositionX-mWidth/2,mPositionY-mHeight/2,mWidth,mHeight,null);
+
         if (Dir.UP==mDir){
             mPositionY-=mSpeed;
         }
@@ -72,13 +72,17 @@ public class Bullet extends TankObject implements Action{
 
     /**
      * 子弹碰撞方法
-     * @param tank
+     * @param tank 坦克对象
      */
     public void collideWith(Tank tank){
+        // TODO: 2021/8/2 这里貌似没必要
+        if (mGroup.equals(tank.mGroup)){
+            return;
+        }
         if (this.intersects(tank)) {
             tank.die();
             this.die();
-            System.out.println("坦克:"+tank.hashCode()+" 被子弹:"+this.hashCode()+"  摧毁！");
+            System.out.println("坦克:"+tank.mGroup.name()+":"+tank.hashCode()+" 被子弹:"+this.mGroup+":"+this.hashCode()+"  摧毁！");
         }
     }
 }

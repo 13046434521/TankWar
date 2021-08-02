@@ -18,6 +18,7 @@ public abstract class TankObject implements Action{
     Dir mDir = Dir.UP;
     boolean isMove;
     boolean isLive = true;
+    Group mGroup = Group.BAD;
 
     public void setPositionX(int positionX) {
         mPositionX = positionX;

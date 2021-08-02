@@ -1,6 +1,7 @@
 package com.jtl.tank;
 
 import com.jtl.tank.bean.Bullet;
+import com.jtl.tank.bean.Group;
 import com.jtl.tank.bean.Tank;
 
 import java.awt.Color;
@@ -27,20 +28,16 @@ public class TankFrame extends Frame {
     private final int tankSpeed = 5;
     private Dir tankDir = Dir.DOWN;
     private final Tank mTank;
-    private final Tank mEnemy;
     private final TankFrame mTankFrame;
     private boolean isMove = false;
     private ArrayList<Tank> mTanks = new ArrayList<>();
     public TankFrame() {
         init();
-        mTank = new Tank(tankX, tankY, tankSpeed, tankDir, ResourceManager.tankUp, this);
-        mEnemy = new Tank(400, 100, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
-        Tank mEnemy1= new Tank(100, 300, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
-        Tank mEnemy2= new Tank(200, 100, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
-        Tank mEnemy3= new Tank(300, 100, tankSpeed, tankDir, ResourceManager.enemyTankDown, this);
-        Tank mEnemy4= new Tank(500, 500, tankSpeed, tankDir, ResourceManager.enemyTankLeft, this);
-
-        mTanks.add(mEnemy);
+        mTank = new Tank(tankX, tankY, tankSpeed, tankDir, Group.GOOD,ResourceManager.tankUp, this);
+        Tank mEnemy1= new Tank(100, 300, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankDown, this);
+        Tank mEnemy2= new Tank(200, 100, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankDown, this);
+        Tank mEnemy3= new Tank(300, 100, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankDown, this);
+        Tank mEnemy4= new Tank(500, 500, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankLeft, this);
         mTanks.add(mEnemy1);
         mTanks.add(mEnemy2);
         mTanks.add(mEnemy3);
@@ -102,6 +99,10 @@ public class TankFrame extends Frame {
             enemy.setDir(tankDir);
             enemy.setMove(false);
             enemy.paint(g);
+            for (int i=0;i<enemy.getBulletList().size();i++){
+                enemy.getBulletList().get(i).paint(g);
+                enemy.getBulletList().get(i).collideWith(mTank);
+            }
         }
 
         for (int k=0;k<mTanks.size();k++){
