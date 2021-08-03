@@ -23,21 +23,21 @@ public class TankFrame extends Frame {
     private final int tankX = 400;
     private final int tankY = 600;
 
-    private final int tankWindowsWidth = 800;
-    private final int tankWindowsHeight = 600;
+    private final int tankWindowsWidth = 1080;
+    private final int tankWindowsHeight = 960;
     private final int tankSpeed = 5;
-    private Dir tankDir = Dir.DOWN;
-    private final Tank mTank;
+    private Dir tankDir = Dir.UP;
+    private Tank mTank;
     private final TankFrame mTankFrame;
     private boolean isMove = false;
-    private ArrayList<Tank> mTanks = new ArrayList<>();
+    private final ArrayList<Tank> mTanks = new ArrayList<>();
     public TankFrame() {
         init();
         mTank = new Tank(tankX, tankY, tankSpeed, tankDir, Group.GOOD,ResourceManager.tankUp, this);
-        Tank mEnemy1= new Tank(100, 300, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankDown, this);
-        Tank mEnemy2= new Tank(200, 100, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankDown, this);
-        Tank mEnemy3= new Tank(300, 100, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankDown, this);
-        Tank mEnemy4= new Tank(500, 500, tankSpeed, tankDir, Group.BAD, ResourceManager.enemyTankLeft, this);
+        Tank mEnemy1= new Tank(100, 300, tankSpeed, Dir.DOWN, Group.BAD, ResourceManager.enemyTankDown, this);
+        Tank mEnemy2= new Tank(200, 100, tankSpeed, Dir.DOWN, Group.BAD, ResourceManager.enemyTankDown, this);
+        Tank mEnemy3= new Tank(300, 100, tankSpeed, Dir.DOWN, Group.BAD, ResourceManager.enemyTankDown, this);
+        Tank mEnemy4= new Tank(500, 500, tankSpeed, Dir.LEFT, Group.BAD, ResourceManager.enemyTankLeft, this);
         mTanks.add(mEnemy1);
         mTanks.add(mEnemy2);
         mTanks.add(mEnemy3);
@@ -96,8 +96,8 @@ public class TankFrame extends Frame {
         }
         for (int k=0;k<mTanks.size();k++){
             Tank enemy = mTanks.get(k);
-            enemy.setDir(tankDir);
-            enemy.setMove(false);
+//            enemy.setDir(tankDir);
+            enemy.setMove(true);
             enemy.paint(g);
             for (int i=0;i<enemy.getBulletList().size();i++){
                 enemy.getBulletList().get(i).paint(g);
@@ -222,6 +222,10 @@ public class TankFrame extends Frame {
 
     public Tank getTank() {
         return mTank;
+    }
+
+    public void setTank(Tank T) {
+         mTank =T;
     }
 
     public ArrayList<Tank> getTanks() {

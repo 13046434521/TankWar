@@ -1,13 +1,13 @@
 package com.jtl.tank.bean;
 
 import com.jtl.tank.Dir;
+import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author jtl
@@ -48,9 +48,14 @@ public class Tank extends TankObject {
             return;
         }
 
-        if (mRandom.nextInt(10)>8){
+        if (Group.BAD.equals(mGroup)&&mRandom.nextInt(100)>98){
             fire();
         }
+        if (Group.BAD.equals(mGroup)&&mRandom.nextInt(100)>98){
+            randomDir();
+        }
+
+
         graphics.drawImage(mTankImage, mPositionX, mPositionY, tankWidth, tankHeight, null);
 
         if (!isMove) {
@@ -66,7 +71,9 @@ public class Tank extends TankObject {
                 break;
             case DOWN:
                 //s
-                mPositionY += mSpeed;
+                if (mPositionY<mTankFrame.getHeight()-this.tankHeight){
+                    mPositionY += mSpeed;
+                }
                 break;
             case LEFT:
                 //a
@@ -77,7 +84,9 @@ public class Tank extends TankObject {
                 break;
             case RIGHT:
                 //d
-                mPositionX += mSpeed;
+                if (mPositionX<mTankFrame.getWidth()-this.tankWidth){
+                    mPositionX += mSpeed;
+                }
                 break;
             default:
                 break;
@@ -98,7 +107,12 @@ public class Tank extends TankObject {
         mBulletList.add(bullet);
     }
 
-    private final AtomicInteger mAtomicInteger = new AtomicInteger(0);
+    public void randomDir(){
+        int random = mRandom.nextInt(4);
+        this.mDir = Dir.values()[random];
+        BufferedImage[] tanks = Group.GOOD.equals(this.mGroup)?ResourceManager.mainTanks:ResourceManager.enemyTanks;
+        this.mTankImage =tanks[random];
+    }
 
 
     public ArrayList<Bullet> getBulletList() {

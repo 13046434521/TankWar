@@ -14,6 +14,7 @@ public class ResourceManager {
     public static BufferedImage tankDown;
     public static BufferedImage tankLeft;
     public static BufferedImage tankRight;
+    public static BufferedImage[] mainTanks;
 
     public static BufferedImage tankBullet;
     public static BufferedImage enemyBullet;
@@ -23,6 +24,7 @@ public class ResourceManager {
     public static BufferedImage enemyTankDown;
     public static BufferedImage enemyTankLeft;
     public static BufferedImage enemyTankRight;
+    public static BufferedImage[] enemyTanks;
 
     public static BufferedImage enemyBlast0;
     public static BufferedImage enemyBlast1;
@@ -39,21 +41,24 @@ public class ResourceManager {
     public static BufferedImage tankBorn2;
     public static BufferedImage tankBorn3;
     public static ArrayList<BufferedImage> tankBlastArrayList = new ArrayList<>();
+
     static {
         tankDefault = ImageUtils.INSTANCE.loadImage("image/p1tankU.jpg");
-        tankUp = ImageUtils.INSTANCE.rotateImage(tankDefault,0);
-        tankDown = ImageUtils.INSTANCE.rotateImage(tankDefault,180);
-        tankLeft = ImageUtils.INSTANCE.rotateImage(tankDefault,270);
-        tankRight = ImageUtils.INSTANCE.rotateImage(tankDefault,90);
+        tankUp = ImageUtils.INSTANCE.rotateImage(tankDefault, 0);
+        tankDown = ImageUtils.INSTANCE.rotateImage(tankDefault, 180);
+        tankLeft = ImageUtils.INSTANCE.rotateImage(tankDefault, 270);
+        tankRight = ImageUtils.INSTANCE.rotateImage(tankDefault, 90);
+        mainTanks = new BufferedImage[]{tankUp,tankDown,tankLeft,tankRight};
 
         tankBullet = ImageUtils.INSTANCE.loadImage("image/tankmissile.jpg");
-        enemyBullet=ImageUtils.INSTANCE.loadImage("image/enemymissile.jpg");
+        enemyBullet = ImageUtils.INSTANCE.loadImage("image/enemymissile.jpg");
 
         enemyTankDefault = ImageUtils.INSTANCE.loadImage("image/enemy1U.jpg");
-        enemyTankUp = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,0);
-        enemyTankDown = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,180);
-        enemyTankLeft = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,270);
-        enemyTankRight = ImageUtils.INSTANCE.rotateImage(enemyTankDefault,90);
+        enemyTankUp = ImageUtils.INSTANCE.rotateImage(enemyTankDefault, 0);
+        enemyTankDown = ImageUtils.INSTANCE.rotateImage(enemyTankDefault, 180);
+        enemyTankLeft = ImageUtils.INSTANCE.rotateImage(enemyTankDefault, 270);
+        enemyTankRight = ImageUtils.INSTANCE.rotateImage(enemyTankDefault, 90);
+        enemyTanks = new BufferedImage[]{enemyTankUp,enemyTankDown,enemyTankLeft,enemyTankRight};
 
         enemyBlast0 = ImageUtils.INSTANCE.loadImage("image/blast1.jpg");
         enemyBlast1 = ImageUtils.INSTANCE.loadImage("image/blast2.jpg");
@@ -63,14 +68,14 @@ public class ResourceManager {
         enemyBlast5 = ImageUtils.INSTANCE.loadImage("image/blast6.jpg");
         enemyBlast6 = ImageUtils.INSTANCE.loadImage("image/blast7.jpg");
         enemyBlast7 = ImageUtils.INSTANCE.loadImage("image/blast8.jpg");
-        enemyBlastArrayList.add(0,enemyBlast0);
-        enemyBlastArrayList.add(1,enemyBlast1);
-        enemyBlastArrayList.add(2,enemyBlast2);
-        enemyBlastArrayList.add(3,enemyBlast3);
-        enemyBlastArrayList.add(4,enemyBlast4);
-        enemyBlastArrayList.add(5,enemyBlast5);
-        enemyBlastArrayList.add(6,enemyBlast6);
-        enemyBlastArrayList.add(7,enemyBlast7);
+        enemyBlastArrayList.add(0, enemyBlast0);
+        enemyBlastArrayList.add(1, enemyBlast1);
+        enemyBlastArrayList.add(2, enemyBlast2);
+        enemyBlastArrayList.add(3, enemyBlast3);
+        enemyBlastArrayList.add(4, enemyBlast4);
+        enemyBlastArrayList.add(5, enemyBlast5);
+        enemyBlastArrayList.add(6, enemyBlast6);
+        enemyBlastArrayList.add(7, enemyBlast7);
 
 
         tankBorn0 = ImageUtils.INSTANCE.loadImage("image/born1.jpg");
