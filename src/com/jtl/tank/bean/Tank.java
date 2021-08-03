@@ -1,7 +1,6 @@
 package com.jtl.tank.bean;
 
 import com.jtl.tank.Dir;
-import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
 
 import java.awt.Graphics;
@@ -19,9 +18,10 @@ public class Tank extends TankObject {
     private final int tankWidth = 50;
     private final int tankHeight = 50;
     private BufferedImage mTankImage;
-    private ArrayList<Bullet> mBulletList = new ArrayList<Bullet>();
+    private final ArrayList<Bullet> mBulletList = new ArrayList<>();
     private final TankFrame mTankFrame;
-    private Random mRandom = new Random();
+    private final Random mRandom = new Random();
+    private Explode mExplode ;
     public Tank(int positionX, int positionY, int speed, Dir dir, Group group,BufferedImage bufferedImage, TankFrame tankFrame) {
         this.mPositionX = positionX;
         this.mPositionY = positionY;
@@ -36,11 +36,16 @@ public class Tank extends TankObject {
     @Override
     public void paint(Graphics graphics) {
         if (!isLive) {
-            if (mAtomicInteger.get() < ResourceManager.enemyBlastArrayList.size()) {
-                graphics.drawImage(ResourceManager.enemyBlastArrayList.get(mAtomicInteger.getAndIncrement()), mPositionX, mPositionY, tankWidth, tankHeight, null);
+            if (mExplode==null){
+                mExplode = new Explode(mPositionX,mPositionY,tankWidth,tankHeight,mGroup);
+            }
+            mExplode.paint(graphics);
+
+            if (!mExplode.isLive){
+                mTankFrame.getTanks().remove(this);
             }
 
-            mTankFrame.getTanks().remove(this);
+            return;
         }
 
         if (mRandom.nextInt(10)>8){
@@ -93,7 +98,7 @@ public class Tank extends TankObject {
         mBulletList.add(bullet);
     }
 
-    private AtomicInteger mAtomicInteger = new AtomicInteger(0);
+    private final AtomicInteger mAtomicInteger = new AtomicInteger(0);
 
 
     public ArrayList<Bullet> getBulletList() {

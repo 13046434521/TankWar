@@ -34,6 +34,11 @@ public class ResourceManager {
     public static BufferedImage enemyBlast7;
     public static ArrayList<BufferedImage> enemyBlastArrayList = new ArrayList<>();
 
+    public static BufferedImage tankBorn0;
+    public static BufferedImage tankBorn1;
+    public static BufferedImage tankBorn2;
+    public static BufferedImage tankBorn3;
+    public static ArrayList<BufferedImage> tankBlastArrayList = new ArrayList<>();
     static {
         tankDefault = ImageUtils.INSTANCE.loadImage("image/p1tankU.jpg");
         tankUp = ImageUtils.INSTANCE.rotateImage(tankDefault,0);
@@ -66,5 +71,15 @@ public class ResourceManager {
         enemyBlastArrayList.add(5,enemyBlast5);
         enemyBlastArrayList.add(6,enemyBlast6);
         enemyBlastArrayList.add(7,enemyBlast7);
+
+
+        tankBorn0 = ImageUtils.INSTANCE.loadImage("image/born1.jpg");
+        tankBorn1 = ImageUtils.INSTANCE.loadImage("image/born2.jpg");
+        tankBorn2 = ImageUtils.INSTANCE.loadImage("image/born3.jpg");
+        tankBorn3 = ImageUtils.INSTANCE.loadImage("image/born4.jpg");
+        tankBlastArrayList.add(tankBorn0);
+        tankBlastArrayList.add(tankBorn1);
+        tankBlastArrayList.add(tankBorn2);
+        tankBlastArrayList.add(tankBorn3);
     }
 }

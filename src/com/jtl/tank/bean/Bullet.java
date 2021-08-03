@@ -75,6 +75,10 @@ public class Bullet extends TankObject implements Action{
      * @param tank 坦克对象
      */
     public void collideWith(Tank tank){
+        // 坦克已经死了就没必要碰撞了
+        if (!tank.isLive()){
+            return;
+        }
         // TODO: 2021/8/2 这里貌似没必要
         if (mGroup.equals(tank.mGroup)){
             return;
