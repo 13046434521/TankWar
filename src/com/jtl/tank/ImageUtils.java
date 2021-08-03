@@ -1,7 +1,6 @@
 package com.jtl.tank;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -22,9 +21,9 @@ public enum ImageUtils {
      */
     INSTANCE;
 
-    public BufferedImage loadImage(String path){
+    public BufferedImage loadImage(String path) {
         try {
-            InputStream inputStream =ClassLoader.getSystemClassLoader().getResourceAsStream(path);
+            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(path);
             BufferedImage bufferedImage = ImageIO.read(inputStream);
 
             Assertions.assertNotNull(bufferedImage);
@@ -37,15 +36,15 @@ public enum ImageUtils {
         return null;
     }
 
-    public BufferedImage rotateImage(BufferedImage image,int degree){
+    public BufferedImage rotateImage(BufferedImage image, int degree) {
         int width = image.getWidth();
         int height = image.getHeight();
         int type = image.getColorModel().getTransparency();
-        BufferedImage img=new BufferedImage(width,height,type);
+        BufferedImage img = new BufferedImage(width, height, type);
         Graphics2D graphics2D = img.createGraphics();
-        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-        graphics2D.rotate(Math.toRadians(degree),width/2,height/2);
-        graphics2D.drawImage(image,0,0,null);
+        graphics2D.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        graphics2D.rotate(Math.toRadians(degree), width / 2, height / 2);
+        graphics2D.drawImage(image, 0, 0, null);
         graphics2D.dispose();
         return img;
 

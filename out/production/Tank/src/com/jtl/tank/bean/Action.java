@@ -8,8 +8,14 @@ import java.awt.Graphics;
  */
 
 interface Action {
+    /**
+     * 渲染方法
+     * @param graphics
+     */
     void paint(Graphics graphics);
 
+    /**
+     * 死亡方法
+     */
     void die();
-//    void update(Graphics graphics);
 }
