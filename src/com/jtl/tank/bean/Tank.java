@@ -35,6 +35,7 @@ public class Tank extends TankObject {
 
     @Override
     public void paint(Graphics graphics) {
+        // 是否存活
         if (!isLive) {
             if (mExplode==null){
                 mExplode = new Explode(mPositionX,mPositionY,tankWidth,tankHeight,mGroup);
@@ -48,13 +49,14 @@ public class Tank extends TankObject {
             return;
         }
 
+        // 敌军坦克 自动开火
         if (Group.BAD.equals(mGroup)&&mRandom.nextInt(100)>98){
             fire();
         }
+        // 敌军坦克 转换方向
         if (Group.BAD.equals(mGroup)&&mRandom.nextInt(100)>98){
             randomDir();
         }
-
 
         graphics.drawImage(mTankImage, mPositionX, mPositionY, tankWidth, tankHeight, null);
 
@@ -65,32 +67,26 @@ public class Tank extends TankObject {
             case UP:
                 //w
                 mPositionY -= mSpeed;
-                if (mPositionY <= 0) {
-                    mPositionY = 0;
-                }
                 break;
             case DOWN:
                 //s
-                if (mPositionY<mTankFrame.getHeight()-this.tankHeight){
-                    mPositionY += mSpeed;
-                }
+                mPositionY += mSpeed;
+
                 break;
             case LEFT:
                 //a
                 mPositionX -= mSpeed;
-                if (mPositionX <= 0) {
-                    mPositionX = 0;
-                }
                 break;
             case RIGHT:
                 //d
-                if (mPositionX<mTankFrame.getWidth()-this.tankWidth){
-                    mPositionX += mSpeed;
-                }
+                mPositionX += mSpeed;
                 break;
             default:
                 break;
         }
+
+        // 移动时边界检测
+        checkBounds();
     }
 
     @Override
@@ -117,5 +113,20 @@ public class Tank extends TankObject {
 
     public ArrayList<Bullet> getBulletList() {
         return mBulletList;
+    }
+
+    private void checkBounds(){
+        if (mPositionY <= 0) {
+            mPositionY = 0;
+        }
+        if (mPositionY>mTankFrame.getHeight()-this.tankHeight){
+            mPositionY=mTankFrame.getHeight()-this.tankHeight;
+        }
+        if (mPositionX <= 0) {
+            mPositionX = 0;
+        }
+        if (mPositionX>mTankFrame.getWidth()-this.tankWidth){
+            mPositionX=mTankFrame.getWidth()-this.tankWidth;
+        }
     }
 }
