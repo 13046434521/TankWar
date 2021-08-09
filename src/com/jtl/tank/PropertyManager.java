@@ -31,11 +31,11 @@ public class PropertyManager {
     }
 
     public int getInt(String key) {
-        return (int) mProperties.getOrDefault(key, 0);
+        return Integer.parseInt(mProperties.getProperty(key));
     }
 
     public boolean getBoolean(String key) {
-        return (boolean) mProperties.getOrDefault(key, false);
+        return Boolean.parseBoolean(mProperties.getProperty(key));
     }
 
 

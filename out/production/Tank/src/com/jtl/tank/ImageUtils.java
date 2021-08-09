@@ -1,7 +1,6 @@
 package com.jtl.tank;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;

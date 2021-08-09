@@ -30,18 +30,10 @@ public class TankFrame extends Frame {
     private Tank mTank;
     private final TankFrame mTankFrame;
     private boolean isMove = false;
-    private final ArrayList<Tank> mTanks = new ArrayList<>();
+    public ArrayList<Tank> mTanks = new ArrayList<>();
     public TankFrame() {
         init();
         mTank = new Tank(tankX, tankY, tankSpeed, tankDir, Group.GOOD,ResourceManager.tankUp, this);
-        Tank mEnemy1= new Tank(100, 300, tankSpeed, Dir.DOWN, Group.BAD, ResourceManager.enemyTankDown, this);
-        Tank mEnemy2= new Tank(200, 100, tankSpeed, Dir.DOWN, Group.BAD, ResourceManager.enemyTankDown, this);
-        Tank mEnemy3= new Tank(300, 100, tankSpeed, Dir.DOWN, Group.BAD, ResourceManager.enemyTankDown, this);
-        Tank mEnemy4= new Tank(500, 500, tankSpeed, Dir.LEFT, Group.BAD, ResourceManager.enemyTankLeft, this);
-        mTanks.add(mEnemy1);
-        mTanks.add(mEnemy2);
-        mTanks.add(mEnemy3);
-        mTanks.add(mEnemy4);
         mTankFrame = this;
     }
 
@@ -79,6 +71,9 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
+        if (mTank==null){
+            return;
+        }
         g.setColor(Color.WHITE);
         g.drawString("子弹数量:"+mTank.getBulletList().size(),0,50);
         g.drawString("坦克数量:"+mTanks.size(),0,100);
