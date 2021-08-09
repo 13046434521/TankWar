@@ -9,40 +9,42 @@ import java.util.ArrayList;
  */
 
 public class ResourceManager {
-    public static BufferedImage tankDefault;
-    public static BufferedImage tankUp;
-    public static BufferedImage tankDown;
-    public static BufferedImage tankLeft;
-    public static BufferedImage tankRight;
-    public static BufferedImage[] mainTanks;
+    private final BufferedImage tankDefault;
+    private final BufferedImage tankUp;
+    private final BufferedImage tankDown;
+    private final BufferedImage tankLeft;
+    private final BufferedImage tankRight;
+    private final BufferedImage[] mainTanks;
 
-    public static BufferedImage tankBullet;
-    public static BufferedImage enemyBullet;
+    private final BufferedImage tankBullet;
+    private final BufferedImage enemyBullet;
 
-    public static BufferedImage enemyTankDefault;
-    public static BufferedImage enemyTankUp;
-    public static BufferedImage enemyTankDown;
-    public static BufferedImage enemyTankLeft;
-    public static BufferedImage enemyTankRight;
-    public static BufferedImage[] enemyTanks;
+    private final BufferedImage enemyTankDefault;
+    private final BufferedImage enemyTankUp;
+    private final BufferedImage enemyTankDown;
+    private final BufferedImage enemyTankLeft;
+    private final BufferedImage enemyTankRight;
+    private final BufferedImage[] enemyTanks;
 
-    public static BufferedImage enemyBlast0;
-    public static BufferedImage enemyBlast1;
-    public static BufferedImage enemyBlast2;
-    public static BufferedImage enemyBlast3;
-    public static BufferedImage enemyBlast4;
-    public static BufferedImage enemyBlast5;
-    public static BufferedImage enemyBlast6;
-    public static BufferedImage enemyBlast7;
-    public static ArrayList<BufferedImage> enemyBlastArrayList = new ArrayList<>();
+    private final BufferedImage enemyBlast0;
+    private final BufferedImage enemyBlast1;
+    private final BufferedImage enemyBlast2;
+    private final BufferedImage enemyBlast3;
+    private final BufferedImage enemyBlast4;
+    private final BufferedImage enemyBlast5;
+    private final BufferedImage enemyBlast6;
+    private final BufferedImage enemyBlast7;
+    private final ArrayList<BufferedImage> enemyBlastArrayList = new ArrayList<>();
 
-    public static BufferedImage tankBorn0;
-    public static BufferedImage tankBorn1;
-    public static BufferedImage tankBorn2;
-    public static BufferedImage tankBorn3;
-    public static ArrayList<BufferedImage> tankBlastArrayList = new ArrayList<>();
+    private final BufferedImage tankBorn0;
+    private final BufferedImage tankBorn1;
+    private final BufferedImage tankBorn2;
+    private final BufferedImage tankBorn3;
+    private final ArrayList<BufferedImage> tankBlastArrayList = new ArrayList<>();
 
-    static {
+    private ResourceManager mResourceManager;
+
+    private ResourceManager(){
         tankDefault = ImageUtils.INSTANCE.loadImage("image/p1tankU.jpg");
         tankUp = ImageUtils.INSTANCE.rotateImage(tankDefault, 0);
         tankDown = ImageUtils.INSTANCE.rotateImage(tankDefault, 180);
@@ -86,5 +88,69 @@ public class ResourceManager {
         tankBlastArrayList.add(tankBorn1);
         tankBlastArrayList.add(tankBorn2);
         tankBlastArrayList.add(tankBorn3);
+    }
+
+    public ArrayList<BufferedImage> getEnemyBlastArrayList() {
+        return enemyBlastArrayList;
+    }
+
+    public ArrayList<BufferedImage> getTankBlastArrayList() {
+        return tankBlastArrayList;
+    }
+
+    public BufferedImage getTankUp() {
+        return tankUp;
+    }
+
+    public BufferedImage getTankDown() {
+        return tankDown;
+    }
+
+    public BufferedImage getTankLeft() {
+        return tankLeft;
+    }
+
+    public BufferedImage getTankRight() {
+        return tankRight;
+    }
+
+    public BufferedImage getEnemyTankUp() {
+        return enemyTankUp;
+    }
+
+    public BufferedImage getEnemyTankDown() {
+        return enemyTankDown;
+    }
+
+    public BufferedImage getEnemyTankLeft() {
+        return enemyTankLeft;
+    }
+
+    public BufferedImage getEnemyTankRight() {
+        return enemyTankRight;
+    }
+
+    public BufferedImage[] getMainTanks() {
+        return mainTanks;
+    }
+
+    public BufferedImage getTankBullet() {
+        return tankBullet;
+    }
+
+    public BufferedImage getEnemyBullet() {
+        return enemyBullet;
+    }
+
+    public BufferedImage[] getEnemyTanks() {
+        return enemyTanks;
+    }
+
+    public static ResourceManager getInstance(){
+        return ResourceManagerHolder.RESOURCE_MANAGER;
+    }
+
+    private static class ResourceManagerHolder{
+        private static final ResourceManager RESOURCE_MANAGER = new ResourceManager();
     }
 }

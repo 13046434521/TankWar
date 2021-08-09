@@ -98,6 +98,54 @@ public class ResourceManager {
         return tankBlastArrayList;
     }
 
+    public BufferedImage getTankUp() {
+        return tankUp;
+    }
+
+    public BufferedImage getTankDown() {
+        return tankDown;
+    }
+
+    public BufferedImage getTankLeft() {
+        return tankLeft;
+    }
+
+    public BufferedImage getTankRight() {
+        return tankRight;
+    }
+
+    public BufferedImage getEnemyTankUp() {
+        return enemyTankUp;
+    }
+
+    public BufferedImage getEnemyTankDown() {
+        return enemyTankDown;
+    }
+
+    public BufferedImage getEnemyTankLeft() {
+        return enemyTankLeft;
+    }
+
+    public BufferedImage getEnemyTankRight() {
+        return enemyTankRight;
+    }
+
+    public BufferedImage[] getMainTanks() {
+        return mainTanks;
+    }
+
+    public BufferedImage getTankBullet() {
+        return tankBullet;
+    }
+
+    public BufferedImage getEnemyBullet() {
+        return enemyBullet;
+    }
+
+    public BufferedImage[] getEnemyTanks() {
+        return enemyTanks;
+    }
+
     public static ResourceManager getInstance(){
         return ResourceManagerHolder.RESOURCE_MANAGER;
     }

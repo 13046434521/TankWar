@@ -14,8 +14,8 @@ import java.awt.image.BufferedImage;
  */
 
 public class Bullet extends TankObject implements Action{
-    private final BufferedImage mTankBullet = ResourceManager.tankBullet;
-    private final BufferedImage mEnemyBullet = ResourceManager.enemyBullet;
+    private final BufferedImage mTankBullet = ResourceManager.getInstance().getTankBullet();
+    private final BufferedImage mEnemyBullet = ResourceManager.getInstance().getEnemyBullet();
     private final TankFrame mTankFrame ;
 
     public Bullet(int positionX, int positionY, int width, int height, Dir dir,Group group, TankFrame tankFrame){

@@ -106,7 +106,7 @@ public class Tank extends TankObject {
     public void randomDir(){
         int random = mRandom.nextInt(4);
         this.mDir = Dir.values()[random];
-        BufferedImage[] tanks = Group.GOOD.equals(this.mGroup)?ResourceManager.mainTanks:ResourceManager.enemyTanks;
+        BufferedImage[] tanks = Group.GOOD.equals(this.mGroup)?ResourceManager.getInstance().getMainTanks():ResourceManager.getInstance().getEnemyTanks();
         this.mTankImage =tanks[random];
     }
 

@@ -33,7 +33,7 @@ public class TankFrame extends Frame {
     public ArrayList<Tank> mTanks = new ArrayList<>();
     public TankFrame() {
         init();
-        mTank = new Tank(tankX, tankY, tankSpeed, tankDir, Group.GOOD,ResourceManager.tankUp, this);
+        mTank = new Tank(tankX, tankY, tankSpeed, tankDir, Group.GOOD,ResourceManager.getInstance().getTankUp(), this);
         mTankFrame = this;
     }
 
@@ -131,25 +131,25 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_W:
                     bU = true;
                     bD = bL = bR = false;
-                    mTank.setTankImage(ResourceManager.tankUp);
+                    mTank.setTankImage(ResourceManager.getInstance().getTankUp());
                     break;
                 case KeyEvent.VK_S:
                 case KeyEvent.VK_DOWN:
                     bD = true;
                     bU = bL = bR = false;
-                    mTank.setTankImage(ResourceManager.tankDown);
+                    mTank.setTankImage(ResourceManager.getInstance().getTankDown());
                     break;
                 case KeyEvent.VK_A:
                 case KeyEvent.VK_LEFT:
                     bL = true;
                     bU = bD = bR = false;
-                    mTank.setTankImage(ResourceManager.tankLeft);
+                    mTank.setTankImage(ResourceManager.getInstance().getTankLeft());
                     break;
                 case KeyEvent.VK_D:
                 case KeyEvent.VK_RIGHT:
                     bR = true;
                     bU = bD = bL =  false;
-                    mTank.setTankImage(ResourceManager.tankRight);
+                    mTank.setTankImage(ResourceManager.getInstance().getTankRight());
                     break;
                 default:
                     break;
