@@ -20,7 +20,7 @@ public class Explode extends TankObject{
         this.mHeight = height;
         this.mWidth = width;
         this.mGroup = group;
-        this.explodeList = mGroup.equals(Group.GOOD)?ResourceManager.tankBlastArrayList:ResourceManager.enemyBlastArrayList;
+        this.explodeList = mGroup.equals(Group.GOOD)?ResourceManager.getInstance().getTankBlastArrayList():ResourceManager.getInstance().getEnemyBlastArrayList();
     }
     @Override
     public void paint(Graphics graphics) {
