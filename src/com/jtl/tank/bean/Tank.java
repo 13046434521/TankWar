@@ -3,6 +3,8 @@ package com.jtl.tank.bean;
 import com.jtl.tank.Dir;
 import com.jtl.tank.ResourceManager;
 import com.jtl.tank.TankFrame;
+import com.jtl.tank.fire.DefaultFireStrategy;
+import com.jtl.tank.fire.FireStrategy;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -51,7 +53,7 @@ public class Tank extends TankObject {
 
         // 敌军坦克 自动开火
         if (Group.BAD.equals(mGroup)&&mRandom.nextInt(100)>98){
-            fire();
+            fire(DefaultFireStrategy.getInstance());
         }
         // 敌军坦克 转换方向
         if (Group.BAD.equals(mGroup)&&mRandom.nextInt(100)>98){
@@ -98,9 +100,8 @@ public class Tank extends TankObject {
         mTankImage = tankImage;
     }
 
-    public void fire() {
-        Bullet bullet = new Bullet(mPositionX + tankWidth / 2, mPositionY + tankHeight / 2, tankWidth / 5, tankHeight / 5, mDir,this.mGroup, this.mTankFrame);
-        mBulletList.add(bullet);
+    public void fire(FireStrategy fireStrategy) {
+        fireStrategy.fire(this);
     }
 
     public void randomDir(){
@@ -129,4 +130,10 @@ public class Tank extends TankObject {
             mPositionX=mTankFrame.getWidth()-this.tankWidth;
         }
     }
+
+    public TankFrame getTankFrame() {
+        return mTankFrame;
+    }
+
+
 }

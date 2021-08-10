@@ -82,6 +82,10 @@ public abstract class TankObject implements Action{
         return isLive;
     }
 
+    public Group getGroup() {
+        return mGroup;
+    }
+
     /**
      * 仿照Rectangle 来判断两个tankObject是否相交
      * @param tankObject

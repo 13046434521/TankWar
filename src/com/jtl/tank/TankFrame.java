@@ -3,6 +3,7 @@ package com.jtl.tank;
 import com.jtl.tank.bean.Bullet;
 import com.jtl.tank.bean.Group;
 import com.jtl.tank.bean.Tank;
+import com.jtl.tank.fire.FastFireStrategy;
 
 import java.awt.Color;
 import java.awt.Frame;
@@ -180,7 +181,7 @@ public class TankFrame extends Frame {
                     bU = bD = bL =  false;
                     break;
                 case KeyEvent.VK_SPACE:
-                    mTank.fire();
+                    mTank.fire(FastFireStrategy.getInstance());
 //                    mEnemy.born();
                     break;
                 default:
